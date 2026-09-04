@@ -1,0 +1,79 @@
+{
+  "problemName": "Arithmetic_Warehouse_Stock_Equilibration",
+  "description": "Balances supply between Depot X and Depot Y from initial stock (x=24, y=6) to equilibrium (x=15, y=15) using transfer and batch adjustment transitions.",
+  "initialState": {
+    "x": 24.0,
+    "y": 6.0,
+    "step_count": 0.0
+  },
+  "goal": [
+    { "variable": "x", "op": "==", "expectedValue": 15.0 },
+    { "variable": "y", "op": "==", "expectedValue": 15.0 }
+  ],
+  "hazards": [
+    { "variable": "x", "op": "<", "expectedValue": 0.0 },
+    { "variable": "y", "op": "<", "expectedValue": 0.0 },
+    { "variable": "x", "op": ">", "expectedValue": 50.0 },
+    { "variable": "y", "op": ">", "expectedValue": 50.0 }
+  ],
+  "capabilities": [
+    {
+      "id": "transfer_3_x_to_y",
+      "name": "Transfer 3 Pallets (X -> Y)",
+      "description": "Transfers 3 units from Depot X to Depot Y",
+      "type": "LOGISTICS_TRANSFER",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": 3.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 3.0 },
+        { "variable": "y", "op": "ADD", "delta": 3.0 }
+      ],
+      "qos": { "timeCost": 1.5, "moneyCost": 10.0, "resourceCost": 1.0, "risk": 0.01 },
+      "reliability": 0.99
+    },
+    {
+      "id": "transfer_6_x_to_y",
+      "name": "Bulk Transfer 6 Pallets (X -> Y)",
+      "description": "Transfers 6 units in batch from Depot X to Depot Y",
+      "type": "LOGISTICS_TRANSFER",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": 6.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 6.0 },
+        { "variable": "y", "op": "ADD", "delta": 6.0 }
+      ],
+      "qos": { "timeCost": 2.2, "moneyCost": 15.0, "resourceCost": 1.8, "risk": 0.02 },
+      "reliability": 0.985
+    },
+    {
+      "id": "external_order_pickup_x",
+      "name": "Fulfill Client Order from Depot X (-3)",
+      "description": "Depot X dispatches 3 units to regional retail store",
+      "type": "ORDER_DISPATCH",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": 3.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 3.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 5.0, "resourceCost": 1.0, "risk": 0.005 },
+      "reliability": 0.995
+    },
+    {
+      "id": "factory_restock_y",
+      "name": "Factory Restock Arrival at Depot Y (+3)",
+      "description": "Depot Y receives 3 units directly from manufacturing line",
+      "type": "FACTORY_RESTOCK",
+      "preconditions": [
+        { "variable": "y", "op": "<=", "expectedValue": 45.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "ADD", "delta": 3.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 8.0, "resourceCost": 1.2, "risk": 0.01 },
+      "reliability": 0.99
+    }
+  ]
+}

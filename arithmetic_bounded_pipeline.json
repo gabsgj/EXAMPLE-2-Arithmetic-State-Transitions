@@ -1,0 +1,77 @@
+{
+  "problemName": "Arithmetic_Multi_Operation_Pipeline",
+  "description": "Transforms state (x=2, y=10) to target goal state (x=12, y=2) using additive, multiplier, and transfer capabilities.",
+  "initialState": {
+    "x": 2.0,
+    "y": 10.0,
+    "step_count": 0.0
+  },
+  "goal": [
+    { "variable": "x", "op": "==", "expectedValue": 12.0 },
+    { "variable": "y", "op": "==", "expectedValue": 2.0 }
+  ],
+  "hazards": [
+    { "variable": "x", "op": ">", "expectedValue": 50.0 },
+    { "variable": "x", "op": "<", "expectedValue": 0.0 },
+    { "variable": "y", "op": ">", "expectedValue": 50.0 },
+    { "variable": "y", "op": "<", "expectedValue": 0.0 }
+  ],
+  "capabilities": [
+    {
+      "id": "mul_2_x",
+      "name": "Multiply X by 2",
+      "description": "Doubles state variable x",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 25.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "MUL", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.5, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "add_2_x",
+      "name": "Add 2 to X",
+      "description": "Increments state variable x by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 48.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "ADD", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "sub_2_y",
+      "name": "Subtract 2 from Y",
+      "description": "Decrements state variable y by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": ">=", "expectedValue": 2.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "SUB", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "div_2_y",
+      "name": "Divide Y by 2",
+      "description": "Halves state variable y",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": ">=", "expectedValue": 4.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "DIV", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.5, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    }
+  ]
+}

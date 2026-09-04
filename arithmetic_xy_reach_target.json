@@ -1,0 +1,133 @@
+{
+  "problemName": "Arithmetic_XY_Target_Reachability",
+  "description": "Transforms state (x=0, y=5) to target goal state (x=7, y=3) via ordered capability transitions.",
+  "initialState": {
+    "x": 0.0,
+    "y": 5.0,
+    "step_count": 0.0
+  },
+  "goal": [
+    { "variable": "x", "op": "==", "expectedValue": 7.0 },
+    { "variable": "y", "op": "==", "expectedValue": 3.0 }
+  ],
+  "hazards": [
+    { "variable": "x", "op": ">", "expectedValue": 20.0 },
+    { "variable": "x", "op": "<", "expectedValue": -20.0 },
+    { "variable": "y", "op": ">", "expectedValue": 20.0 },
+    { "variable": "y", "op": "<", "expectedValue": -20.0 }
+  ],
+  "capabilities": [
+    {
+      "id": "add_1_x",
+      "name": "Add 1 to X",
+      "description": "Increments state variable x by 1",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 19.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "ADD", "delta": 1.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "add_2_x",
+      "name": "Add 2 to X",
+      "description": "Increments state variable x by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 18.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "ADD", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "sub_1_x",
+      "name": "Subtract 1 from X",
+      "description": "Decrements state variable x by 1",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": -19.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 1.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "sub_2_x",
+      "name": "Subtract 2 from X",
+      "description": "Decrements state variable x by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": -18.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "add_1_y",
+      "name": "Add 1 to Y",
+      "description": "Increments state variable y by 1",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": "<=", "expectedValue": 19.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "ADD", "delta": 1.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "add_2_y",
+      "name": "Add 2 to Y",
+      "description": "Increments state variable y by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": "<=", "expectedValue": 18.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "ADD", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "sub_1_y",
+      "name": "Subtract 1 from Y",
+      "description": "Decrements state variable y by 1",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": ">=", "expectedValue": -19.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "SUB", "delta": 1.0 }
+      ],
+      "qos": { "timeCost": 1.0, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    },
+    {
+      "id": "sub_2_y",
+      "name": "Subtract 2 from Y",
+      "description": "Decrements state variable y by 2",
+      "type": "COMPUTATION",
+      "preconditions": [
+        { "variable": "y", "op": ">=", "expectedValue": -18.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "SUB", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.0 },
+      "reliability": 1.0
+    }
+  ]
+}

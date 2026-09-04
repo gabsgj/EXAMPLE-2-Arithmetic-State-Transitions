@@ -1,0 +1,30 @@
+======================================================================
+      ARITHMETIC CAPABILITY TRANSITION EXECUTION SUMMARY             
+      Problem: Arithmetic_Warehouse_Stock_Equilibration
+======================================================================
+
+Initial State S_I:
+  x = 24, y = 6
+
+Goal State G:
+  x == 15
+  y == 15
+
+Execution Status:  SUCCESS
+Total Steps:       2 transitions
+Total Cost:        31.65
+Planning Latency:  199.708 microseconds
+
+Step-by-Step State Evolution (S_i -> C_k -> S_{i+1}):
+----------------------------------------------------------------------
+Step 1:
+  State Before:  (x=24, y=6)
+  Capability:    transfer_3_x_to_y [Transfer 3 Pallets (X -> Y)]
+  State After:   (x=21, y=9)
+
+Step 2:
+  State Before:  (x=21, y=9)
+  Capability:    transfer_6_x_to_y [Bulk Transfer 6 Pallets (X -> Y)]
+  State After:   (x=15, y=15)
+
+======================================================================

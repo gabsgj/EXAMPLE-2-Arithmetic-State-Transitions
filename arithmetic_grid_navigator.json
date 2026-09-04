@@ -1,0 +1,105 @@
+{
+  "problemName": "Arithmetic_2D_Grid_Waypoint_Navigation",
+  "description": "Guides an autonomous waypoint navigator from origin (x=0, y=0) to goal coordinate (x=15, y=8) via discrete directional vector transitions.",
+  "initialState": {
+    "x": 0.0,
+    "y": 0.0,
+    "step_count": 0.0
+  },
+  "goal": [
+    { "variable": "x", "op": "==", "expectedValue": 15.0 },
+    { "variable": "y", "op": "==", "expectedValue": 8.0 }
+  ],
+  "hazards": [
+    { "variable": "x", "op": ">", "expectedValue": 35.0 },
+    { "variable": "x", "op": "<", "expectedValue": -10.0 },
+    { "variable": "y", "op": ">", "expectedValue": 35.0 },
+    { "variable": "y", "op": "<", "expectedValue": -10.0 }
+  ],
+  "capabilities": [
+    {
+      "id": "add_5_x",
+      "name": "Impulse Step +5 on X",
+      "description": "Advances coordinate x forward by 5 units",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 30.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "ADD", "delta": 5.0 }
+      ],
+      "qos": { "timeCost": 2.0, "moneyCost": 0.0, "resourceCost": 1.5, "risk": 0.01 },
+      "reliability": 0.99
+    },
+    {
+      "id": "add_3_x",
+      "name": "Stride Step +3 on X",
+      "description": "Advances coordinate x forward by 3 units",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "x", "op": "<=", "expectedValue": 32.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "ADD", "delta": 3.0 }
+      ],
+      "qos": { "timeCost": 1.5, "moneyCost": 0.0, "resourceCost": 1.0, "risk": 0.005 },
+      "reliability": 0.995
+    },
+    {
+      "id": "sub_2_x",
+      "name": "Reverse Step -2 on X",
+      "description": "Decrements coordinate x by 2 units for precision correction",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "x", "op": ">=", "expectedValue": -8.0 }
+      ],
+      "effects": [
+        { "variable": "x", "op": "SUB", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.2, "moneyCost": 0.0, "resourceCost": 0.8, "risk": 0.005 },
+      "reliability": 0.998
+    },
+    {
+      "id": "add_4_y",
+      "name": "Lateral Leap +4 on Y",
+      "description": "Advances coordinate y northward by 4 units",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "y", "op": "<=", "expectedValue": 31.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "ADD", "delta": 4.0 }
+      ],
+      "qos": { "timeCost": 1.8, "moneyCost": 0.0, "resourceCost": 1.2, "risk": 0.01 },
+      "reliability": 0.99
+    },
+    {
+      "id": "add_2_y",
+      "name": "Lateral Step +2 on Y",
+      "description": "Advances coordinate y northward by 2 units",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "y", "op": "<=", "expectedValue": 33.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "ADD", "delta": 2.0 }
+      ],
+      "qos": { "timeCost": 1.1, "moneyCost": 0.0, "resourceCost": 0.7, "risk": 0.005 },
+      "reliability": 0.996
+    },
+    {
+      "id": "sub_1_y",
+      "name": "Lateral Drift -1 on Y",
+      "description": "Decrements coordinate y southward by 1 unit",
+      "type": "LOCOMOTION",
+      "preconditions": [
+        { "variable": "y", "op": ">=", "expectedValue": -9.0 }
+      ],
+      "effects": [
+        { "variable": "y", "op": "SUB", "delta": 1.0 }
+      ],
+      "qos": { "timeCost": 0.9, "moneyCost": 0.0, "resourceCost": 0.5, "risk": 0.002 },
+      "reliability": 0.999
+    }
+  ]
+}
